@@ -26,4 +26,7 @@ let cryptoCards = [
   { currency: "SOL", number: "2", logo: solLogo, found: false },
 ];
 
-export default cryptoCards;
+const shuffleArray = (array) => array.sort(() => Math.random() - 0.5); // Shuffle array method
+const shuffledCards = shuffleArray(cryptoCards);
+
+export default shuffledCards;

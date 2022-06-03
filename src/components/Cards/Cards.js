@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Card from "../Card/Card";
 import "./cards.scss";
 
@@ -18,4 +19,4 @@ const Cards = ({ gameSituation, firstSelectedCard, secondSelectedCard, handleCli
   return <div className="cards-container">{listOfCards}</div>;
 };
 
-export default Cards;
+export default memo(Cards);

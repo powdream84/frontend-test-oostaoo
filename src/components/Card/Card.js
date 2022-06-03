@@ -1,3 +1,4 @@
+import { memo } from "react";
 import "./card.scss";
 
 const Card = ({ currency, number, logo, found, handleClickOnCard, firstSelectedCard, secondSelectedCard }) => {
@@ -8,7 +9,7 @@ const Card = ({ currency, number, logo, found, handleClickOnCard, firstSelectedC
     <div
       className="card"
       onClick={(e) => {
-        isFirstSelectedCard ? e.preventDefault() : handleClickOnCard(e, currency, number);
+        isFirstSelectedCard || found ? e.preventDefault() : handleClickOnCard(e, currency, number);
       }}
     >
       <img className={isFirstSelectedCard || isSecondSelectedCard || found ? "" : "hidden"} src={logo} alt={currency} />
@@ -16,4 +17,4 @@ const Card = ({ currency, number, logo, found, handleClickOnCard, firstSelectedC
   );
 };
 
-export default Card;
+export default memo(Card);

@@ -1,30 +1,39 @@
-import { useState, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 import Cards from "../Cards/Cards";
+import Modal from "../Modal/Modal";
 import cryptoCards from "../../cryptoCards";
 import "./App.scss";
 
 const App = () => {
   // State
-  const [gameSituation, setGameSituation] = useState([]);
+  const [gameSituation, setGameSituation] = useState(cryptoCards);
   const [firstSelectedCard, setFirstSelectedCard] = useState({ currency: "", number: "" });
   const [secondSelectedCard, setSecondSelectedCard] = useState({ currency: "", number: "" });
   const [isCardClickable, setIsCardClickable] = useState(true);
+  const [isVictory, setIsVictory] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   // Functions
-  const shuffleArray = (array) => array.sort(() => Math.random() - 0.5); // Shuffle array method
 
-  const testCardsRemaining = () => {
-    console.log("launch testCardsRemaining");
-    const cardRemaining = gameSituation.find((obj) => {
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
+  const closeModal = () => {
+    setIsModalOpened(false);
+    refreshPage();
+  };
+
+  const testVictory = () => {
+    console.log("testVictory");
+    const victory = gameSituation.find((obj) => {
       return obj.found === false;
     });
-    console.log("cardRemaining => ", cardRemaining);
+    if (victory === undefined) setIsVictory(true);
   };
 
   const handleClickOnCard = (e, currency, number) => {
     if (!isCardClickable) return;
-    //if () e.preventDefault();
-
     // if this is the first card we select
     if (firstSelectedCard.currency.length === 0) {
       setFirstSelectedCard({ currency: currency, number: number });
@@ -51,9 +60,12 @@ const App = () => {
   };
 
   useEffect(() => {
-    const shuffledCards = shuffleArray(cryptoCards);
-    setGameSituation(shuffledCards);
-  }, []);
+    testVictory();
+  }, [secondSelectedCard]);
+
+  useEffect(() => {
+    if (isVictory) setIsModalOpened(true);
+  }, [isVictory]);
 
   return (
     <>
@@ -63,8 +75,9 @@ const App = () => {
         secondSelectedCard={secondSelectedCard}
         handleClickOnCard={handleClickOnCard}
       />
+      <Modal isOpened={isModalOpened} message={isVictory ? "Congratulations !" : "Game over !"} closeModal={closeModal} />
     </>
   );
 };
 
-export default App;
+export default memo(App);
