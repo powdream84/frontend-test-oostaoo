@@ -23,6 +23,8 @@ const App = () => {
 
   const handleClickOnCard = (e, currency, number) => {
     if (!isCardClickable) return;
+    //if () e.preventDefault();
+
     // if this is the first card we select
     if (firstSelectedCard.currency.length === 0) {
       setFirstSelectedCard({ currency: currency, number: number });
@@ -52,10 +54,6 @@ const App = () => {
     const shuffledCards = shuffleArray(cryptoCards);
     setGameSituation(shuffledCards);
   }, []);
-
-  /* useEffect(() => {
-    if (testCardsRemaining() === undefined) alert("Congratulations, you won the game !"); // Remplace it with modal
-  }, [gameSituation]); */
 
   return (
     <>
