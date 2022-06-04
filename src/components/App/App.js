@@ -1,6 +1,7 @@
 import { memo, useState, useEffect } from "react";
 import Cards from "../Cards/Cards";
 import Modal from "../Modal/Modal";
+import Timer from "../Timer/Timer";
 import cryptoCards from "../../cryptoCards";
 import "./App.scss";
 
@@ -12,20 +13,10 @@ const App = () => {
   const [isCardClickable, setIsCardClickable] = useState(true);
   const [isVictory, setIsVictory] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [timerValue, setTimerValue] = useState(0);
 
   // Functions
-
-  function refreshPage() {
-    window.location.reload(false);
-  }
-
-  const closeModal = () => {
-    setIsModalOpened(false);
-    refreshPage();
-  };
-
   const testVictory = () => {
-    console.log("testVictory");
     const victory = gameSituation.find((obj) => {
       return obj.found === false;
     });
@@ -55,13 +46,25 @@ const App = () => {
         setFirstSelectedCard({ currency: "", number: "" });
         setSecondSelectedCard({ currency: "", number: "" });
         setIsCardClickable(true);
-      }, 2000);
+      }, 750);
     }
   };
 
   useEffect(() => {
     testVictory();
   }, [secondSelectedCard]);
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setTimerValue((timerValue) => {
+        if (timerValue < 100) return timerValue + 1;
+        else {
+          clearInterval(interval);
+          setIsModalOpened(true);
+        }
+      });
+    }, 750);
+  }, []);
 
   useEffect(() => {
     if (isVictory) setIsModalOpened(true);
@@ -75,7 +78,8 @@ const App = () => {
         secondSelectedCard={secondSelectedCard}
         handleClickOnCard={handleClickOnCard}
       />
-      <Modal isOpened={isModalOpened} message={isVictory ? "Congratulations !" : "Game over !"} closeModal={closeModal} />
+      <Modal isOpened={isModalOpened} message={isVictory ? "Congratulations !" : "Game over ..."} />
+      <Timer timerValue={timerValue} />
     </>
   );
 };

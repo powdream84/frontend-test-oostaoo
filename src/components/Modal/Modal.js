@@ -1,14 +1,18 @@
+import { memo } from "react";
 import "./modal.scss";
 
-const Modal = ({ isOpened, message, closeModal }) => {
-  const close = () => {
-    console.log("close");
+const Modal = ({ isOpened, message }) => {
+  const playAgain = () => {
+    window.location.reload(false);
   };
   return (
-    <div className={`modal ${isOpened ? "visible" : "hidden"}`} onClick={closeModal}>
-      <div>{message}</div>
+    <div className={`modal ${isOpened ? "visible" : "hidden"}`}>
+      <div>
+        <h3>{message}</h3>
+        <button onClick={playAgain}>Play again !</button>
+      </div>
     </div>
   );
 };
 
-export default Modal;
+export default memo(Modal);

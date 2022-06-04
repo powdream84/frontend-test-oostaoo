@@ -1,11 +1,11 @@
-import adaLogo from "./assets/icons/ada.png";
-import bnbLogo from "./assets/icons/bnb.png";
-import btcLogo from "./assets/icons/btc.png";
-import dogeLogo from "./assets/icons/doge.png";
-import ethLogo from "./assets/icons/eth.png";
-import manaLogo from "./assets/icons/mana.png";
-import shibLogo from "./assets/icons/shib.png";
-import solLogo from "./assets/icons/sol.png";
+import adaLogo from "./assets/logos/ada.png";
+import bnbLogo from "./assets/logos/bnb.png";
+import btcLogo from "./assets/logos/btc.png";
+import dogeLogo from "./assets/logos/doge.png";
+import ethLogo from "./assets/logos/eth.png";
+import manaLogo from "./assets/logos/mana.png";
+import shibLogo from "./assets/logos/shib.png";
+import solLogo from "./assets/logos/sol.png";
 
 let cryptoCards = [
   { currency: "ADA", number: "1", logo: adaLogo, found: false },
