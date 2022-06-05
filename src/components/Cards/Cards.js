@@ -1,4 +1,5 @@
 import { memo } from "react";
+import PropTypes from "prop-types";
 import Card from "../Card/Card";
 import "./cards.scss";
 
@@ -17,6 +18,26 @@ const Cards = ({ gameSituation, firstSelectedCard, secondSelectedCard, handleCli
     />
   ));
   return <div className="cards-container">{listOfCards}</div>;
+};
+
+Cards.propTypes = {
+  gameSituation: PropTypes.arrayOf(
+    PropTypes.shape({
+      currency: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      logo: PropTypes.node.isRequired,
+      found: PropTypes.bool.isRequired,
+    })
+  ),
+  firstSelectedCard: PropTypes.shape({
+    currency: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  secondSelectedCard: PropTypes.shape({
+    currency: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  handleClickOnCard: PropTypes.func,
 };
 
 export default memo(Cards);

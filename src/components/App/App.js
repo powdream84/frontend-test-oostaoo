@@ -70,6 +70,7 @@ const App = () => {
     if (isVictory) setIsModalOpened(true);
   }, [isVictory]);
 
+  //console.log("rerender");
   return (
     <>
       <Cards

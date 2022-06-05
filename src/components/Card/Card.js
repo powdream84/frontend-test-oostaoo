@@ -1,4 +1,5 @@
 import { memo } from "react";
+import PropTypes from "prop-types";
 import "./card.scss";
 
 const Card = ({ currency, number, logo, found, handleClickOnCard, firstSelectedCard, secondSelectedCard }) => {
@@ -15,6 +16,22 @@ const Card = ({ currency, number, logo, found, handleClickOnCard, firstSelectedC
       <img className={isFirstSelectedCard || isSecondSelectedCard || found ? "" : "hidden"} src={logo} alt={currency} />
     </div>
   );
+};
+
+Card.propTypes = {
+  currency: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  logo: PropTypes.node.isRequired,
+  found: PropTypes.bool.isRequired,
+  handleClickOnCard: PropTypes.func,
+  firstSelectedCard: PropTypes.shape({
+    currency: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  secondSelectedCard: PropTypes.shape({
+    currency: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
 };
 
 export default memo(Card);
