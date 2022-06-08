@@ -1,0 +1,58 @@
+Énoncé : 
+
+Le but est de créer le jeu Memory.
+
+Au commencement du jeu, des cartes sont disposées face cachée à l'écran.
+Le joueur doit cliquer sur deux cartes. Si celles-ci sont identiques, la paire est validée. Sinon, les cartes sont retournées face cachée, et le joueur doit sélectionner une nouvelle paire de cartes.
+Un compteur de temps, avec une barre de progression, s’affiche en dessous du plateau.
+Le joueur gagne s'il arrive à découvrir toutes les paires avant la fin du temps imparti.
+
+Créer le jeu en react / redux avec typescript.
+La répartition des cartes doit être aléatoire à chaque jeu.
+Précisions CSS : SASS ou autre préprocesseur encouragé.
+Cartes à jouer, vous pouvez utilisez les images que vous souhaiter.
+Charte graphique: Pas de charte graphique imposée. Quoi qu’il en soit, le code CSS doit être compréhensible et abordable.
+
+
+Réflexion :
+1 composant App qui contient tout le reste
+1 composant Cards qui englobe toutes les cartes
+16 composants Card représentant chacun une carte
+1 timer (à faire en dernier) puisqu'il n'affecte pas beaucoup la logique du jeu
+
+2 cas à distinguer au clic sur une carte :
+  - au clic sur la première carte, on stocke la valeur de cette dernière dans un state selectedCard1, on passe l'image en display block.
+  - au clic sur la deuxième carte, on stocke la valeur de cette dernière dans un state selectedCard2, on passe l'image en display block puis 
+    on vérifie si les deux valeurs stockées sont identiques. 
+    Si oui, on laisse les deux en display block, et on passe les cartes trouvées en found = true. 
+    Si non, on repasse les deux en display none. Dans les deux cas, on reset les states selectedCard1 et selectedCard2. 
+
+donc à chaque clic sur une carte, on vérifie si selectedCard1 contient une valeur :
+ - si oui, on met sa valeur dans selectedCard2
+ - si non, on met sa valeur dans selectedCard1
+
+faire en sorte que le clic sur une carte ne provoque rien si cette carte est celle stockée dans selectedCard1. 
+
+Représentation des cartes dans le state global:
+
+{
+  family: 'BTC',
+  displayed: 'true',
+  found: 'false',
+};
+
+Dans cet exemple, on vient de cliquer sur une première carte BTC qui est donc affichée, mais la deuxième carte n'ayant pas encore été cliquée, son statut found reste à false.
+
+Différentes familles existantes : 
+- BTC
+- ETH
+- SOL
+- ADA
+- BNB
+- DOGE
+- SHIB
+- MANA
+
+Ne pas oublier : 
+Penser à faire un test sur un composant
+
