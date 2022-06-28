@@ -1,29 +1,34 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import Cards from "../Cards/Cards";
 import Modal from "../Modal/Modal";
 import Timer from "../Timer/Timer";
 import cryptoCards from "../../cryptoCards";
 import "./App.scss";
 
-const App = () => {
+interface SelectedCard {
+  currency: string;
+  number: string;
+}
+
+const App: React.FC = () => {
   // State
   const [gameSituation, setGameSituation] = useState(cryptoCards);
-  const [firstSelectedCard, setFirstSelectedCard] = useState({ currency: "", number: "" });
-  const [secondSelectedCard, setSecondSelectedCard] = useState({ currency: "", number: "" });
+  const [firstSelectedCard, setFirstSelectedCard] = useState<SelectedCard>({ currency: "", number: "" });
+  const [secondSelectedCard, setSecondSelectedCard] = useState<SelectedCard>({ currency: "", number: "" });
   const [isCardClickable, setIsCardClickable] = useState(true);
   const [isVictory, setIsVictory] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [timerValue, setTimerValue] = useState(0);
 
   // Functions
-  const testVictory = () => {
+  const testVictory = useCallback(() => {
     const victory = gameSituation.find((obj) => {
       return obj.found === false;
     });
     if (victory === undefined) setIsVictory(true);
-  };
+  }, [gameSituation]);
 
-  const handleClickOnCard = (e, currency, number) => {
+  const handleClickOnCard = (e: React.MouseEvent<HTMLElement>, currency: string, number: string) => {
     if (!isCardClickable) return;
     // if this is the first card we select
     if (firstSelectedCard.currency.length === 0) {
@@ -52,15 +57,18 @@ const App = () => {
 
   useEffect(() => {
     testVictory();
-  }, [secondSelectedCard]);
+  }, [secondSelectedCard, testVictory]);
 
   useEffect(() => {
     let interval = setInterval(() => {
       setTimerValue((timerValue) => {
-        if (timerValue < 100) return timerValue + 1;
-        else {
+        //console.log(timerValue);
+        if (timerValue < 100) {
+          return timerValue + 1;
+        } else {
           clearInterval(interval);
           setIsModalOpened(true);
+          return timerValue;
         }
       });
     }, 750);

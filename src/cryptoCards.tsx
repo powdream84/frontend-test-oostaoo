@@ -1,3 +1,5 @@
+import { Card } from "./interfaces";
+
 import adaLogo from "./assets/logos/ada.png";
 import bnbLogo from "./assets/logos/bnb.png";
 import btcLogo from "./assets/logos/btc.png";
@@ -7,7 +9,7 @@ import manaLogo from "./assets/logos/mana.png";
 import shibLogo from "./assets/logos/shib.png";
 import solLogo from "./assets/logos/sol.png";
 
-let cryptoCards = [
+let cryptoCards: Card[] = [
   { currency: "ADA", number: "1", logo: adaLogo, found: false },
   { currency: "ADA", number: "2", logo: adaLogo, found: false },
   { currency: "BNB", number: "1", logo: bnbLogo, found: false },
@@ -26,7 +28,7 @@ let cryptoCards = [
   { currency: "SOL", number: "2", logo: solLogo, found: false },
 ];
 
-const shuffleArray = (array) => array.sort(() => Math.random() - 0.5); // Shuffle array method
+const shuffleArray = (array: Card[]): Card[] => array.sort(() => Math.random() - 0.5); // Shuffle array method
 const shuffledCards = shuffleArray(cryptoCards);
 
 export default shuffledCards;

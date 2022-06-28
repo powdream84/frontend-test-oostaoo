@@ -1,10 +1,10 @@
 import { memo } from "react";
-import PropTypes from "prop-types";
+import { ModalProps } from "../../interfaces";
 import "./modal.scss";
 
-const Modal = ({ isOpened, message }) => {
+const Modal = ({ isOpened, message }: ModalProps) => {
   const playAgain = () => {
-    window.location.reload(false);
+    window.location.reload();
   };
   return (
     <div className={`modal ${isOpened ? "visible" : "hidden"}`}>
@@ -14,11 +14,6 @@ const Modal = ({ isOpened, message }) => {
       </div>
     </div>
   );
-};
-
-Modal.propTypes = {
-  isOpened: PropTypes.bool,
-  message: PropTypes.string,
 };
 
 export default memo(Modal);
